@@ -65,8 +65,6 @@ if __name__ == "__main__":
   root = Tk()
   root.title("Extract Image")
   frame_book = ExtractFrame(root, padx=8, pady=4, background='#003545')
-  # book = convert_from_path('./KBR2.pdf')
-  # frame_book.save(path='./KBR2', list_image=book)
   frame_book.pack(side=TOP, expand=True, fill=BOTH)
 
   root.mainloop()
