@@ -1,16 +1,18 @@
-from tkinter import BOTH, TOP, Tk, DISABLED, NORMAL, TOP, X
-from tkinter.filedialog import askopenfilename
-from pdf2image import convert_from_path
 import threading
 from os.path import basename, dirname
-from OpenPDFFrame import OpenPDFFrame
+from tkinter import BOTH, DISABLED, NORMAL, TOP, Menu, Tk, X
+from tkinter.filedialog import askopenfilename
+
+from pdf2image import convert_from_path
+
 from ExtractFrame import ExtractFrame
+from OpenPDFFrame import OpenPDFFrame
 
 root = Tk()
 root.title('PDF to Image')
 root.resizable(False, False)
 
-def open_file(event):
+def open_file(event=None):
   global frame_open_pdf
   frame_open_pdf.button_open_pdf.configure(state=DISABLED)
   filepath = askopenfilename(filetypes=[('PDF File', '*.pdf')])
@@ -43,4 +45,11 @@ frame_open_pdf.button_open_pdf.bind('<Button-1>', open_file)
 
 frame_open_pdf.pack(side=TOP, fill=BOTH, expand=True)
 
+menu = Menu(root)
+fileMenu = Menu(menu, tearoff=0)
+menu.add_cascade(label='File', menu=fileMenu)
+fileMenu.add_command(label='Open File', command=open_file)
+fileMenu.add_command(label='Exit', command=root.quit)
+
+root.config(menu=menu)
 root.mainloop()
